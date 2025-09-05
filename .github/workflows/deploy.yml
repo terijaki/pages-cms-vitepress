@@ -36,6 +36,12 @@ jobs:
         uses: actions/configure-pages@v4
       - name: Install dependencies
         run: bun install
+
+        # https://vitepress.dev/guide/deploy#setting-a-public-base-path
+      - name: Change VitePress base URL
+        run: |
+          sed -i 's|base: "/",|base: "/${{ github.repository }}",|' .vitepress/config.ts
+
       - name: Build with VitePress
         run: bun run build
       - name: Upload artifact

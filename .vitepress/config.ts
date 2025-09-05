@@ -8,6 +8,7 @@ import sidebar from "../configs/sidebar.json";
 
 const baseConfig =  defineConfig({
   srcDir: "docs",
+  base: "/",
   title: brand.title,
   description: brand.description,
   themeConfig: {
