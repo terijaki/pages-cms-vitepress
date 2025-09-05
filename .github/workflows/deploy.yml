@@ -40,7 +40,8 @@ jobs:
         # https://vitepress.dev/guide/deploy#setting-a-public-base-path
       - name: Change VitePress base URL
         run: |
-          sed -i 's|base: "/",|base: "/${{ github.repository }}",|' .vitepress/config.ts
+          REPO_NAME=${GITHUB_REPOSITORY##*/}
+          sed -i 's|base: "/",|base: "/'"$REPO_NAME"'/",|' .vitepress/config.ts
 
       - name: Build with VitePress
         run: bun run build
