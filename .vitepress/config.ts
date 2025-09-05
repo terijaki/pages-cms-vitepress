@@ -16,8 +16,6 @@ const baseConfig =  defineConfig({
   }
 })
 
-// #e5763fff
-
 /** Sidebar configuration for VitePress */
 const vitePressSidebarOptions: VitePressSidebarOptions = 	{
 		...sidebar,

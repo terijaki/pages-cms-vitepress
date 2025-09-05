@@ -1,7 +1,7 @@
 media:
   - name: images
     label: Images
-    input: docs/images
+    input: docs/images/public
     output: /images
     extensions: [jpg, jpeg, png, webp]
 content:
