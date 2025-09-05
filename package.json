@@ -1,0 +1,16 @@
+{
+  "name": "pages-cms-vitepress-demo",
+  "version": "0.0.1",
+  "private": false,
+  "homepage": "https://pagescms.org",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^2.0.0-alpha.12",
+    "vitepress-i18n": "^1.3.4",
+    "vitepress-sidebar": "^1.33.0"
+  }
+}

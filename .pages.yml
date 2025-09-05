@@ -1,0 +1,323 @@
+media:
+  - name: images
+    label: Images
+    input: docs/images
+    output: /images
+    extensions: [jpg, jpeg, png, webp]
+content:
+  - name: docs
+    label: Documents
+    type: collection
+    path: "docs"
+    exclude: ["index.md"]
+    subfolders: false
+    filename: "{primary}.md"
+    view:
+      fields: [title]
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: order
+        label: Order
+        type: number
+        default: 0
+        description: Numeric value to determine the order of the document in lists. This requires "sortMenusByFrontmatterOrder" to be enabled in the sidebar settings.
+      - name: body
+        label: Body
+        type: rich-text
+  - name: home
+    label: Home Page
+    type: file
+    path: docs/index.md
+    fields:
+      - name: layout
+        label: Layout
+        type: string
+        default: home
+        hidden: true
+      - name: hero
+        label: Hero
+        type: object
+        fields:
+          - name: name
+            label: Name
+            type: string
+            description: The main title displayed prominently on the home page.
+          - name: text
+            label: Text
+            type: string
+            description: A secondary title displayed below the main title.
+          - name: tagline
+            label: Tagline
+            type: string
+            description: A brief tagline or description displayed below the title.
+          - name: image
+            label: Image
+            type: object
+            fields:
+              - name: light
+                label: Light Mode Image
+                type: image
+              - name: dark
+                label: Dark Mode Image
+                type: image
+              - name: alt
+                label: Alt Text
+                type: string
+                description: Alternative text for the image, used for accessibility and SEO.
+            description: An optional image to display in the hero section.
+          - name: actions
+            label: Actions
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.text} ({fields.link})"
+            description: A list of action buttons to display in the hero section.
+            fields:
+              - name: text
+                label: Button Text
+                type: string
+                description: The text to display on the button.
+                required: true
+              - name: link
+                label: Button Link
+                type: string
+                description: The URL or path the button points to. Use absolute URLs for external links and relative paths for internal links.
+                required: true
+              - name: theme
+                label: Button Theme
+                type: select
+                required: true
+                options:
+                  default: brand
+                  values: [brand, alt]
+                description: The visual style of the button.
+              - name: target
+                type: select
+                label: Link Target
+                options:
+                  values: [_blank, _self, _parent, _top]
+      - name: features
+        label: Features
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title}"
+        fields:
+          - name: title
+            label: Feature Title
+            type: string
+            description: The title of the feature.
+            required: true
+          - name: details
+            label: Feature Details
+            type: string
+            description: A brief description of the feature.
+            required: true
+          - name: icon
+            label: Feature Icon
+            type: string
+            description: An optional icon to represent the feature (e.g., emoji or icon class).
+      - name: body
+        label: Body
+        type: rich-text
+  - name: brand
+    label: Branding
+    path: configs/brand.json
+    type: file
+    fields:
+      - name: title
+        label: Website Title
+        type: string
+        description: The title of the website, which will be shown in the top left corner.
+        required: true
+      - name: description
+        label: Website Description
+        type: string
+        description: A brief description of the website, used in the meta tags for SEO purposes.
+      - name: locale
+        label: Website Language
+        description: Select the default language for the website. This determines how UI elements are displayed, such as Search, Edit this page, etc.
+        type: select
+        options:
+          default: en
+          values: [en, ko, zhHans, zhHant, ja, es, pt, ru, id, de, fr, vi, it]
+      - name: navigation
+        label: Navigation Menu
+        description: Configure the top navigation menu links. You can add multiple links to different sections or external websites.
+        type: object
+        fields:
+          - name: nav
+            label: Navigation Links
+            description: List of navigation links to be displayed in the top menu. Should ideally include at least one link to a page.
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.text} ({fields.link})"
+            fields:
+              - name: text
+                label: Label
+                type: string
+                description: The text to display for the navigation link.
+                required: true
+              - name: link
+                label: URL
+                type: string
+                description: The URL or path the link points to. Use absolute URLs for external links and relative paths for internal links.
+                required: true
+          - name: socialLinks
+            label: Social Links
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.icon} ({fields.link})"
+            fields:
+              - name: icon
+                label: Icon Name
+                type: string
+                description: The name of the icon to use (e.g., 'github', 'discord'). Refer to https://simpleicons.org for available icons.
+                required: true
+              - name: link
+                label: URL
+                type: string
+                description: The URL to your social media profile or page.
+                required: true
+      - name: colors
+        label: VitePress Colors
+        description: Customize the primary colors used in the VitePress theme. These colors will be applied to various UI elements such as links, buttons, and highlights. (https://vitepress.dev/guide/extending-default-theme)
+        type: object
+        fields:
+          - name: --vp-c-brand-1
+            label: Brand Color 1
+            type: string
+            description: Use any valid CSS color value, such as hex, rgb, or hsl.
+          - name: --vp-c-brand-2
+            label: Brand Color 2
+            type: string
+            description: Use any valid CSS color value, such as hex, rgb, or hsl.
+          - name: --vp-c-brand-3
+            label: Brand Color 3
+            type: string
+            description: Use any valid CSS color value, such as hex, rgb, or hsl.
+          - name: --vp-c-brand-soft
+            label: Brand Soft Color
+            type: string
+            description: Use any valid CSS color value, such as hex, rgb, or hsl.
+  - name: sidebar
+    label: Sidebar Generation
+    path: configs/sidebar.json
+    type: file
+    fields:
+      - name: followSymlinks
+        label: Follow symbolic links
+        type: boolean
+        description: Include directories or files that have symbolic links when scanning.
+      - name: useTitleFromFileHeading
+        label: Use title from file heading
+        type: boolean
+        description: Whether to use the title from the file heading.
+      - name: useTitleFromFrontmatter
+        label: Use title from frontmatter
+        type: boolean
+        description: Whether to use the title from the frontmatter.
+      - name: useFolderTitleFromIndexFile
+        label: Use folder title from index file
+        type: boolean
+        description: Use the information in the current folder's index.md file to get the menu name.
+      - name: useFolderLinkFromIndexFile
+        label: Use folder link from index file
+        type: boolean
+        description: Specify a link to the folder so that you can navigate to the index.md file.
+      - name: useFolderLinkFromSameNameSubFile
+        label: Use folder link from same name sub file
+        type: boolean
+        description: If a subfile with the same name as the folder exists, create a link in the folder.
+      - name: folderLinkNotIncludesFileName
+        label: Folder link not includes file name
+        type: boolean
+        description: When establishing a folder link, specify the link only as a folder path.
+      - name: sortMenusByName
+        label: Sort menus by name
+        type: boolean
+        description: Sort the items in the menu by name.
+      - name: sortMenusByFileDatePrefix
+        label: Sort menus by file date prefix
+        type: boolean
+        description: Sort by date prefix in the name of the menu item (YYYY-MM-DD format).
+      - name: sortMenusByFrontmatterOrder
+        label: Sort menus by frontmatter order
+        type: boolean
+        description: Sort menu items by the 'order' property of the frontmatter.
+      - name: frontmatterOrderDefaultValue
+        label: Frontmatter order default value
+        type: number
+        description: Default value for the 'order' property when not set in frontmatter.
+      - name: sortMenusByFrontmatterDate
+        label: Sort menus by frontmatter date
+        type: boolean
+        description: Sort menu items by the 'date' property of the frontmatter.
+      - name: sortMenusOrderByDescending
+        label: Sort menus order by descending
+        type: boolean
+        description: Sort items in descending order when other sort options are enabled.
+      - name: sortMenusOrderNumericallyFromTitle
+        label: Sort menus numerically from title
+        type: boolean
+        description: Sort by numbers at the beginning of menu names numerically rather than alphabetically.
+      - name: sortMenusOrderNumericallyFromLink
+        label: Sort menus numerically from link
+        type: boolean
+        description: Sort by numbers at the beginning of links numerically rather than alphabetically.
+      - name: collapsed
+        label: Collapsed
+        type: boolean
+        description: Whether menu groups should be collapsed by default.
+      - name: collapseDepth
+        label: Collapse depth
+        type: number
+        description: At the specified depth, the menu group is made collapsed.
+      - name: excludeFilesByFrontmatterFieldName
+        label: Exclude files by frontmatter field name
+        type: string
+        description: Field name in frontmatter that when set to true excludes the file from menu. (empty field means this feature is disabled)
+      - name: includeDotFiles
+        label: Include dot files
+        type: boolean
+        description: Include hidden files and folders that start with a dot.
+      - name: includeRootIndexFile
+        label: Include root index file
+        type: boolean
+        description: Include the top-level index.md file in the sidebar menu.
+      - name: hyphenToSpace
+        label: Hyphen to space
+        type: boolean
+        description: Convert hyphens (-) in file names to spaces in menu titles.
+      - name: underscoreToSpace
+        label: Underscore to space
+        type: boolean
+        description: Convert underscores (_) in file names to spaces in menu titles.
+      - name: capitalizeFirst
+        label: Capitalize first letter
+        type: boolean
+        description: Force the first letter of menu names to uppercase.
+      - name: capitalizeEachWords
+        label: Capitalize each word
+        type: boolean
+        description: Capitalize the first letter of each word in menu names.
+      - name: keepMarkdownSyntaxFromTitle
+        label: Keep markdown syntax from title
+        type: boolean
+        description: Preserve Markdown syntax in title text without removing it.
+      - name: removePrefixAfterOrdering
+        label: Remove prefix after ordering
+        type: boolean
+        description: Remove specific prefixes from menu titles after sorting is complete.
+      - name: debugPrint
+        label: Debug print
+        type: boolean
+        description: Print the created objects to console log for debugging purposes.

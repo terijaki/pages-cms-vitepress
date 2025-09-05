@@ -1,0 +1,33 @@
+{
+    "title": "Pages CMS + VitePress",
+    "description": "A VitePress Site",
+    "locale": "en",
+    "navigation": {
+        "nav": [
+            {
+                "text": "Home",
+                "link": "/"
+            },
+            {
+                "text": "Pages CMS",
+                "link": "https://pagescms.org"
+            },
+            {
+                "text": "VitePress",
+                "link": "https://vitepress.dev"
+            }
+        ],
+        "socialLinks": [
+            {
+                "icon": "github",
+                "link": "https://github.com/terijaki/pages-cms-vitepress"
+            }
+        ]
+    },
+    "colors": {
+        "--vp-c-brand-1": "#e5763f",
+        "--vp-c-brand-2": "#e5763f",
+        "--vp-c-brand-3": "#207e7e",
+        "--vp-c-brand-soft": "rgba(94, 92, 230, 0.16)"
+    }
+}
